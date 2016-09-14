@@ -59,8 +59,6 @@
         <props>
             <prop key="hibernate.show_sql">true</prop>
             <prop key="hibernate.dialect">${jdbc.dialect}</prop>
-            <prop key="hibernate.current_session_context_class">thread</prop>
-            <prop key="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</prop>
             <prop key="hibernate.connection.charSet">UTF-8</prop>
         </props>
     </property>
