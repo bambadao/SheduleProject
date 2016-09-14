@@ -19,9 +19,9 @@ public class RaspController {
     public String getRasps(Model model) {
         
         List<Rasp> rasps = raspService.getRaspList();
-        model.addAttribute("rasps", rasps);
+        model.addAttribute("raspList", rasps);
         
-        return "rasppage";
+        return "index";
     }
     //
 }

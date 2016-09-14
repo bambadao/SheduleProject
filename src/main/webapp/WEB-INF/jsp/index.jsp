@@ -12,12 +12,12 @@
     </head>
 
     <body>
-        <c:if test="${!empty rasps}">
+        <c:if test="${!empty raspList}">
             <table class="data">
                 <tr>
                     <th></th>
                 </tr>
-                <c:forEach items="${rasps}" var="rasp">
+                <c:forEach items="${raspList}" var="rasp">
                     <tr>
                         <td>${rasp.grp}</td>
                         <td>${rasp.aud}</td>
