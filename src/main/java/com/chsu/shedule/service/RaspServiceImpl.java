@@ -21,9 +21,36 @@ public class RaspServiceImpl implements IRaspService {
 
     @Override
     @Transactional
-    public List getRaspList(String group, String datePrev, String dateNext) {
+    public List getRaspListByGroup(String group, String datePrev, String dateNext) {
     
-        List rasps = this.raspDao.getRaspList(group);
+        List rasps = this.raspDao.getRaspListByGroup(group);
+        
+        return rasps;
+    }
+
+    @Override
+    @Transactional
+    public List getGroupList() {
+        
+        List groupList = this.raspDao.getGroupList();
+        
+        return groupList;
+    }
+
+    @Override
+    @Transactional
+    public List getPrepodList() {
+        
+        List prepods = this.raspDao.getPrepodList();
+        
+        return prepods;
+    }
+
+    @Override
+    @Transactional
+    public List getRaspListByPrepod(String prepod, String datePrev, String dateNext) {
+       
+        List rasps = this.raspDao.getRaspListByGroup(prepod);
         
         return rasps;
     }

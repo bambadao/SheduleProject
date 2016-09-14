@@ -18,8 +18,10 @@ public class RaspController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getRasps(Model model) {
         
-        List<Rasp> rasps = raspService.getRaspList();
-        model.addAttribute("raspList", rasps);
+//        List<Rasp> rasps = raspService.getRaspList();
+//        model.addAttribute("raspList", rasps);
+        List<String> groupList = raspService.getGroupList();
+        model.addAttribute("groupList", groupList);
         
         return "index";
     }
