@@ -18,7 +18,10 @@
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <context:component-scan base-package="com.chsu.shedule.controller" />
+    
     <mvc:annotation-driven />
+    
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/">
     
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 

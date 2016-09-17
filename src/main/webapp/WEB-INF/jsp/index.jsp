@@ -12,6 +12,11 @@
     </head>
 
     <body>
+        <form method="POST" action="">
+        <form:select path="group">
+            <form:option value="-" label="--Пожалуйста выберите"/>
+            <form:options items="${groupList}" itemValue="code" itemLabel="name"/>
+        </form:select>
         <c:if test="${!empty groupList}">
             <table class="data">
                 <c:forEach items="${groupList}" var="group">
