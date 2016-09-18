@@ -8,23 +8,58 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>Расписание</title>
+        <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="webjars/bootstrap-select/1.9.4/css/bootstrap-select.css">
     </head>
 
     <body>
-        <form method="POST" action="">
-        <form:select path="group">
-            <form:option value="-" label="--Пожалуйста выберите"/>
-            <form:options items="${groupList}" itemValue="code" itemLabel="name"/>
-        </form:select>
-        <c:if test="${!empty groupList}">
-            <table class="data">
-                <c:forEach items="${groupList}" var="group">
-                    <tr>
-                        <td>${group}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:if>
+        <script type="text/javascript" src="webjars/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap-select/1.9.4/js/bootstrap-select.js"></script>
+        <div class="container">
+            <ul class="nav nav-pills nav-justified">
+                <li><a data-toggle="pill" href="#group">Расписание учебных групп</a></li>
+                <li><a data-toggle="pill" href="#prepod">Расписание преподавателей</a></li>
+            </ul>
+            <br>
+            <div class="tab-content">
+                <div id="group" class="tab-pane fade in active">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <select class="selectpicker form-control" id="selectGroup" data-live-search="true" title="Выберите группу ...">
+                                <c:if test="${!empty groupList}">
+                                    <c:forEach items="${groupList}" var="group">
+                                        <option value ="${group}">${group}</option>
+                                    </c:forEach>
+                                </c:if>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="datetime" class="form-control" id="date">
+                        </div>
+                        <button type="submit" class="btn btn-default">Показать</button>
+                    </form>
+                </div>
+                <div id="prepod" class="tab-pane fade">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <select class="selectpicker form-control" id="selectGroup" data-live-search="true" title="Выберите преподавателя ...">
+                                <c:if test="${!empty prepodList}">
+                                    <c:forEach items="${prepodList}" var="prepod">
+                                        <option value ="${prepod}">${prepod}</option>
+                                    </c:forEach>
+                                </c:if>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="datetime" class="form-control" id="date">
+                        </div>
+                        <button type="submit" class="btn btn-default">Показать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
     </body>
 </html>

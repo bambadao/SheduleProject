@@ -23,6 +23,9 @@ public class RaspController {
         List<String> groupList = raspService.getGroupList();
         model.addAttribute("groupList", groupList);
         
+        List<String> prepodList = raspService.getPrepodList();
+        model.addAttribute("prepodList", prepodList);
+        
         return "index";
     }
     //
