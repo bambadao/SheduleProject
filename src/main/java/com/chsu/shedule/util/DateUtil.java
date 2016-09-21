@@ -55,7 +55,7 @@ public final class DateUtil {
     }
     
     public static Date stringToDate(String currentDate) {			
-	SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
+	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 	Date date = null;
 	try {
             date = sdf.parse(currentDate);

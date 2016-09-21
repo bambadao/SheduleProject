@@ -87,4 +87,11 @@ public class RaspServiceImpl implements IRaspService {
         
         return raspMap;
     }
+
+    @Override
+    @Transactional
+    public List getRaspGroup(String group) {
+        List raspList = this.raspDao.getRaspListByGroup(group);       
+        return raspList;
+    }
 }

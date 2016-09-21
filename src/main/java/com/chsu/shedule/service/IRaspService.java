@@ -8,5 +8,6 @@ public interface IRaspService {
     public Map getRaspListByGroup(String group, String datePrev, String dateNext);
     public Map getRaspListByPrepod(String prepod, String datePrev, String dateNext);
     public List getGroupList();
-    public List getPrepodList();    
+    public List getPrepodList();
+    public List getRaspGroup(String group);
 }
