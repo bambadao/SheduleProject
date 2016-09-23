@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,45 +14,40 @@ public final class DateUtil {
 
     private DateUtil() {}
     
+    public static String[] rangeToStringDate(String dateRange) {
+        String[] temp = new String[2];
+        int count = 0;
+        Matcher matcher = Pattern.compile("(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d").matcher(dateRange);
+        while(matcher.find()) {
+            temp[count] = matcher.group();
+            count++;
+        }
+        return temp;
+    }
+    
     public static int[] rangeToInt(String rangeWeeks) {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(rangeWeeks);
 	int[] temp = new int[2];
 	int start = 0, i = 0;
-	while (matcher.find(start)) {
+	/*while (matcher.find(start)) {
             String value = rangeWeeks.substring(matcher.start(), matcher.end());
             temp[i] = Integer.parseInt(value);
             start = matcher.end();
             i++;
-	}		
+	}*/
+        while (matcher.find()) {
+            String value = matcher.group();
+            temp[i] = Integer.parseInt(value);
+            i++;
+	}
 	return temp;
     }
     
-    public static int dayWeekToInt(String day) {
-        int i;
-        switch (day) {
-            case "понедельник":
-                i = 2;
-                break;
-            case "вторник":
-                i = 3;
-                break;
-            case "среда":
-                i = 4;
-                break;
-            case "четверг":
-                i = 5;
-                break;
-            case "пятница":
-                i = 6;
-                break;
-            case "суббота":
-                i = 7;
-                break;
-            default:
-                i = 1;
-        }        
-        return i;
+    public static String dayWeek(Date day) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
+        simpleDateFormat = new SimpleDateFormat("EEEE", new Locale("ru"));
+        return simpleDateFormat.format(day);
     }
     
     public static Date stringToDate(String currentDate) {			

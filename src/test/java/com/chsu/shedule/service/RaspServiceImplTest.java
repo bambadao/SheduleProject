@@ -5,6 +5,9 @@
  */
 package com.chsu.shedule.service;
 
+import com.chsu.shedule.domain.Rasp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -67,8 +70,8 @@ public class RaspServiceImplTest {
         String dateNext = "";
         RaspServiceImpl instance = new RaspServiceImpl();
         Map expResult = null;
-        Map result = instance.getRaspListByGroup(group, datePrev, dateNext);
-        assertEquals(expResult, result);
+        //Map result = instance.getRaspListByGroup(group, datePrev, dateNext);
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -85,8 +88,8 @@ public class RaspServiceImplTest {
         String dateNext = "";
         RaspServiceImpl instance = new RaspServiceImpl();
         Map expResult = null;
-        Map result = instance.getRaspListByPrepod(prepod, datePrev, dateNext);
-        assertEquals(expResult, result);
+        //Map result = instance.getRaspListByPrepod(prepod, datePrev, dateNext);
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -135,6 +138,20 @@ public class RaspServiceImplTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+    
+    @Test
+    @Ignore
+    public void testToChooseByDate() {
+        System.out.println("toChooseByDate");
+        List<Rasp> list = new ArrayList<>();
+        list.add(new Rasp("7ЗМО-61", "вторник", "16-50 - 18-20", "31.10.2014", "обз.лк Обзорные лекции" 
+                            , "c 1 по 9" , "нечет", "Крылова Н.П. доцент", "204 Сов.10" , 1, 1, 1, 1));
+        String dateRange = "11.09.2016 - 15.09.2016";
+        RaspServiceImpl instance = new RaspServiceImpl();
+        Map<String, ArrayList<Rasp>> expResult = new HashMap<>();
+        Map result = instance.toChooseByDate(list, dateRange);
+        assertEquals(expResult, result);
     }
     
 }

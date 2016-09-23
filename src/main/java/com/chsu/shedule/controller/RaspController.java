@@ -3,6 +3,7 @@ package com.chsu.shedule.controller;
 import com.chsu.shedule.domain.Rasp;
 import com.chsu.shedule.service.IRaspService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +32,13 @@ public class RaspController {
     }
     
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String getRaspList(@ModelAttribute("group") String str , Model model) {
+    public String getRaspList(@ModelAttribute("group") String str, @ModelAttribute("daterange") String dateRange, Model model) {
 
-        List raspList = raspService.getRaspGroup(str);
+        //List raspList = raspService.getRaspGroup(str);
+        Map raspMap = raspService.getRaspListByGroup(str, dateRange);
         //model.addAttribute("raspList", raspList);
+        model.addAttribute("raspMap", raspMap);
         
-        return "redirect:/index";
+        return "/index";
     }
 }

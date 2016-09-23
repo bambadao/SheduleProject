@@ -18,7 +18,7 @@
         <script type="text/javascript" src="webjars/jquery/3.1.0/jquery.min.js"></script>
         <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="webjars/bootstrap-select/1.9.4/js/bootstrap-select.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="webjars/momentjs/2.15.0/min/moment.min.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
         <header>
             <p><h1>CHSU</h1></p>
@@ -43,7 +43,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="daterange" class="form-control" id="date">
+                            <input type="text" name="daterange" class="form-control" id="date">
                         </div>
                         <button type="submit" class="btn btn-default">Показать</button>
                     </form>
@@ -67,24 +67,63 @@
                 </div>
             </div>
         </div>
-            <c:if test="${!empty raspList}">
-            <table class="data">
-                <tr>
-                    <th></th>
-                </tr>
-                <c:forEach items="${raspList}" var="rasp">
+            <c:if test="${!empty raspMap}">
+                <table class="data">
+                    <c:forEach items="${raspMap}" var="rasps">
                     <tr>
-                        <td>${rasp.grp}</td>
-                        <td>${rasp.aud}</td>
+                        <th>${rasps.key}</th>
+                        <th>${rasps.value[0].DNed}</th>
                     </tr>
+                    <c:forEach items="${rasps.value}" var="rasp">
+                        <tr>
+                            <td>${rasp.vrem}</td>
+                            <td>${rasp.NDis}</td>
+                            <td>${rasp.dol}</td>
+                            <td>${rasp.aud}</td>
+                        </tr>
+                    </c:forEach>
                 </c:forEach>
-            </table>
+                </table>
         </c:if>	
         </main>
     </body>
     <script type="text/javascript">
         $(function() {
-            $('input[name="daterange"]').daterangepicker();
+            $('input[name="daterange"]').daterangepicker({
+    "locale": {
+        "format": "DD.MM.YYYY",
+        "separator": " - ",
+        "applyLabel": "Принять",
+        "cancelLabel": "Отмена",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Вс",
+            "Пн",
+            "Вт",
+            "Ср",
+            "Чт",
+            "Пт",
+            "Сб"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    }});
         });
     </script>
 </html>

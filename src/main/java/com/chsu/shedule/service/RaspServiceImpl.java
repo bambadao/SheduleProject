@@ -3,10 +3,13 @@ package com.chsu.shedule.service;
 import com.chsu.shedule.dao.IRaspDao;
 import com.chsu.shedule.domain.Rasp;
 import com.chsu.shedule.util.DateUtil;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +29,17 @@ public class RaspServiceImpl implements IRaspService {
 
     @Override
     @Transactional
-    public Map getRaspListByGroup(String group, String datePrev, String dateNext) {    
+    public Map getRaspListByGroup(String group, String dateRange) {    
         //List raspList = this.raspDao.getRaspListByGroup(group);
-        Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByGroup(group), datePrev, dateNext);        
+        Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByGroup(group), dateRange);        
         return raspMap;
     }
 
     @Override
     @Transactional
-    public Map getRaspListByPrepod(String prepod, String datePrev, String dateNext) {        
+    public Map getRaspListByPrepod(String prepod, String dateRange) {        
         //List rasps = this.raspDao.getRaspListByGroup(prepod);        
-        Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByPrepod(prepod), datePrev, dateNext);
+        Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByPrepod(prepod), dateRange);
         return raspMap;
     }
 
@@ -54,12 +57,13 @@ public class RaspServiceImpl implements IRaspService {
         return prepods;
     }   
     
-    private Map toChooseByDate(List<Rasp> list, String datePrev, String dateNext) {
+    public Map toChooseByDate(List<Rasp> list, String dateRange) {
         
         //Initialization map output data.
-        Map<String, ArrayList<Rasp>> raspMap = new HashMap<>();
+        Map<String, ArrayList<Rasp>> raspMap = new TreeMap<>();
         //Initialization array between datePrev and DateNext, and put date String in output map/
-        List<Date> dateList = DateUtil.getDateList(datePrev, dateNext);
+        String[] dates = DateUtil.rangeToStringDate(dateRange);
+        List<Date> dateList = DateUtil.getDateList(dates[0], dates[1]);
         for (Date date: dateList) {
             raspMap.put(DateUtil.dateToString(date), new ArrayList<Rasp>());
         }
@@ -68,13 +72,14 @@ public class RaspServiceImpl implements IRaspService {
         for (Rasp rasp: list) {
             //get date parameter of object input array
             int[] rangeRasp = DateUtil.rangeToInt(rasp.getNachNed());
-            int dayWeekRasp = DateUtil.dayWeekToInt(rasp.getDNed());
+            //int dayWeekRasp = DateUtil.dayWeekToInt(rasp.getDNed());
             String parityRasp = rasp.getChNch();
             //foreach date array between date.
             for (Date date: dateList) {                
                 int weekNumberDate = DateUtil.getNumberWeek(date);
                 if ((rangeRasp[0] <= weekNumberDate)&&(rangeRasp[1] >= weekNumberDate)) {
-                    if (dayWeekRasp == date.getDay()) {
+                    String dateWeek = DateUtil.dayWeek(date);
+                    if (rasp.getDNed().equalsIgnoreCase(dateWeek)) {
                         String parityDate = (weekNumberDate & 1) == 0 ? "чет" : "нечет";
                         if ((parityRasp.equalsIgnoreCase("ежен")) || (parityRasp.equalsIgnoreCase(parityDate))) {
                             raspMap.get(DateUtil.dateToString(date)).add(rasp);
@@ -83,6 +88,13 @@ public class RaspServiceImpl implements IRaspService {
                 }
             }
             
+        }
+        
+        for (Iterator<Map.Entry<String, ArrayList<Rasp>>> it = raspMap.entrySet().iterator(); it.hasNext();) {
+            Map.Entry<String, ArrayList<Rasp>> temp = it.next();
+            if (temp.getValue().isEmpty()) {
+                it.remove();
+            }
         }
         
         return raspMap;

@@ -42,6 +42,15 @@ public class DateUtilTest {
     public void tearDown() {
     }
 
+    @org.junit.Test    
+    public void testRangeToStringDate(){
+        System.out.println("rangeToStringDate");
+        String dateRange = "11/09/2016 - 15/09/2016";
+        String[] expResult = {"11/09/2016", "15/09/2016"};
+        String[] result = DateUtil.rangeToStringDate(dateRange);
+        assertArrayEquals(expResult, result);
+    }
+    
     /**
      * Test of rangeToInt method, of class DateUtil.
      */
@@ -58,12 +67,11 @@ public class DateUtilTest {
      * Test of dayWeekToInt method, of class DateUtil.
      */
     @org.junit.Test
-    public void testDayWeekToInt() {
+    public void testDayWeek() {
         System.out.println("dayWeekToInt");
-        String day = "вторник";
-        System.out.println(day);
-        int expResult = 3;
-        int result = DateUtil.dayWeekToInt(day);
+        Date day = new Date(2016-1900,8,13);
+        String expResult = "вторник";
+        String result = DateUtil.dayWeek(day);
         assertEquals(expResult, result);
     }
 
@@ -115,8 +123,8 @@ public class DateUtilTest {
     @org.junit.Test
     public void testGetNumberWeek() {
         System.out.println("getNumberWeek");
-        Date date = new Date(2016-1900, 8, 7);
-        int expResult = 2;
+        Date date = new Date(2016-1900, 8, 14);
+        int expResult = 3;
         int result = DateUtil.getNumberWeek(date);
         assertEquals(expResult, result);
     }
