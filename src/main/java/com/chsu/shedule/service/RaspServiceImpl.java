@@ -3,13 +3,11 @@ package com.chsu.shedule.service;
 import com.chsu.shedule.dao.IRaspDao;
 import com.chsu.shedule.domain.Rasp;
 import com.chsu.shedule.util.DateUtil;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,16 +27,14 @@ public class RaspServiceImpl implements IRaspService {
 
     @Override
     @Transactional
-    public Map getRaspListByGroup(String group, String dateRange) {    
-        //List raspList = this.raspDao.getRaspListByGroup(group);
+    public Map getRaspListByGroup(String group, String dateRange) { 
         Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByGroup(group), dateRange);        
         return raspMap;
     }
 
     @Override
     @Transactional
-    public Map getRaspListByPrepod(String prepod, String dateRange) {        
-        //List rasps = this.raspDao.getRaspListByGroup(prepod);        
+    public Map getRaspListByPrepod(String prepod, String dateRange) {   
         Map raspMap = this.toChooseByDate(this.raspDao.getRaspListByPrepod(prepod), dateRange);
         return raspMap;
     }

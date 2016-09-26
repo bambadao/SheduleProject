@@ -66,9 +66,27 @@
                     </form>
                 </div>
             </div>
+            
         </div>
             <c:if test="${!empty raspMap}">
-                <table class="data">
+                <form class="form-inline">
+                    <div class="dropdown form-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>                            
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Microsoft Excel</a></li>
+                            <li><a href="#">Adobe PDF</a></li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                        </button>
+                    </div>    
+                </form>
+                <div>
+                <table class="table table-striped">
                     <c:forEach items="${raspMap}" var="rasps">
                     <tr>
                         <th>${rasps.key}</th>
@@ -84,6 +102,7 @@
                     </c:forEach>
                 </c:forEach>
                 </table>
+                </div>
         </c:if>	
         </main>
     </body>

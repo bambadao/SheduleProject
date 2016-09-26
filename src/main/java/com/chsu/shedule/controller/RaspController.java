@@ -1,6 +1,5 @@
 package com.chsu.shedule.controller;
 
-import com.chsu.shedule.domain.Rasp;
 import com.chsu.shedule.service.IRaspService;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RaspController {
@@ -20,8 +20,6 @@ public class RaspController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getRasps(Model model) {
         
-//        List<Rasp> rasps = raspService.getRaspList();
-//        model.addAttribute("raspList", rasps);
         List<String> groupList = raspService.getGroupList();
         model.addAttribute("groupList", groupList);
         
@@ -32,13 +30,11 @@ public class RaspController {
     }
     
     @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String getRaspList(@ModelAttribute("group") String str, @ModelAttribute("daterange") String dateRange, Model model) {
-
-        //List raspList = raspService.getRaspGroup(str);
+    public String getRaspList(@ModelAttribute("group") String str, @ModelAttribute("daterange") String dateRange
+                                , Model model, RedirectAttributes redirectAttributes) {
         Map raspMap = raspService.getRaspListByGroup(str, dateRange);
-        //model.addAttribute("raspList", raspList);
-        model.addAttribute("raspMap", raspMap);
         
-        return "/index";
+        redirectAttributes.addFlashAttribute("raspMap", raspMap);
+        return "redirect:/index.htm";
     }
 }
