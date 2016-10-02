@@ -25,21 +25,16 @@
     
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
-    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="index.htm">indexController</prop>
-            </props>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:order="1"
+        p:prefix="/WEB-INF/jsp/"
+        p:suffix=".jsp" />
+    
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="0" />
+        <property name="location" >
+            <value>/WEB-INF/excel-pdf-config.xml</value>
         </property>
-    </bean>
-
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp/"
-          p:suffix=".jsp" />
-
-    <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
+    </bean>     
 
 </beans>

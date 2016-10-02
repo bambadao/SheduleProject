@@ -9,15 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/index")
 public class RaspController {
     
     @Autowired
     private IRaspService raspService;
-    
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+
+    @RequestMapping(method = RequestMethod.GET)
     public String getRasps(Model model) {
         
         List<String> groupList = raspService.getGroupList();
@@ -29,12 +31,28 @@ public class RaspController {
         return "index";
     }
     
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
-    public String getRaspList(@ModelAttribute("group") String str, @ModelAttribute("daterange") String dateRange
-                                , Model model, RedirectAttributes redirectAttributes) {
-        Map raspMap = raspService.getRaspListByGroup(str, dateRange);
+    @RequestMapping(method = RequestMethod.POST, params="group")
+    public String getRaspListByGroup(@ModelAttribute("group") String group, @ModelAttribute("daterange") String dateRange
+                                , RedirectAttributes redirectAttributes) {
+        Map raspMap = raspService.getRaspListByGroup(group, dateRange);
         
         redirectAttributes.addFlashAttribute("raspMap", raspMap);
         return "redirect:/index.htm";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, params="prepod")
+    public String getRaspListByPrepod(@ModelAttribute("prepod") String prepod, @ModelAttribute("daterange") String dateRange
+                                , RedirectAttributes redirectAttributes) {
+        Map raspMap = raspService.getRaspListByPrepod(prepod, dateRange);
+        
+        redirectAttributes.addFlashAttribute("raspMap", raspMap);
+        return "redirect:/index.htm";
+    }
+    
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ModelAndView showListInPdf() {
+        
+        
+        return new ModelAndView("pdfDocument", "raspMaps", null);
     }
 }

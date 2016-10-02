@@ -49,9 +49,9 @@
                     </form>
                 </div>
                 <div id="prepod" class="tab-pane fade">
-                    <form class="form-inline">
+                    <form class="form-inline" name="index" method="post">
                         <div class="form-group">
-                            <select class="selectpicker form-control" name="group" id="selectGroup" data-live-search="true" title="Выберите преподавателя ...">
+                            <select class="selectpicker form-control" name="prepod" id="selectGroup" data-live-search="true" title="Выберите преподавателя ...">
                                 <c:if test="${!empty prepodList}">
                                     <c:forEach items="${prepodList}" var="prepod">
                                         <option value ="${prepod}">${prepod}</option>
@@ -60,7 +60,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="datetime" class="form-control" id="date">
+                            <input type="text" name="daterange" class="form-control" id="date">
                         </div>
                         <button type="submit" class="btn btn-default">Показать</button>
                     </form>
@@ -75,8 +75,8 @@
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>                            
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Microsoft Excel</a></li>
-                            <li><a href="#">Adobe PDF</a></li>
+                            <li><a href="javascript: if(window.print) window.print()">Microsoft Excel</a></li>
+                            <li><a href="index/get">Adobe PDF</a></li>
                         </ul>
                     </div>
                     <div class="form-group">
