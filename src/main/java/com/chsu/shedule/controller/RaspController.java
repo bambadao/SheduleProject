@@ -3,6 +3,7 @@ package com.chsu.shedule.controller;
 import com.chsu.shedule.service.IRaspService;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,9 +51,10 @@ public class RaspController {
     }
     
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ModelAndView showListInPdf() {
+    public ModelAndView showListInPdf(HttpServletRequest request) {
         
         
-        return new ModelAndView("pdfDocument", "raspMaps", null);
+        Map raspMap = (Map) request.getAttribute("raspMap");
+        return new ModelAndView("pdfDocument", "raspMap", raspMap);
     }
 }
