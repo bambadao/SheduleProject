@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="webjars/bootstrap-select/1.9.4/css/bootstrap-select.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+        <link rel="stylesheet" href="css/datepicker.min.css">
+        <link rel="stylesheet" href="css/style.css"
     </head>
 
     <body>
@@ -20,20 +22,26 @@
         <script type="text/javascript" src="webjars/bootstrap-select/1.9.4/js/bootstrap-select.js"></script>
         <script type="text/javascript" src="webjars/momentjs/2.15.0/min/moment.min.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+        <script src="js/datepicker.min.js" type="text/javascript" ></script>
         <header>
-            <p><h1>CHSU</h1></p>
+            <div class="container">
+                <a href="index" class="logo" title="Расписание занятий ЧГУ"> 
+                    <img src="img/logo.png" alt="ЧГУ" width="160" height="48">
+                </a> 
+                <h2 class="text-center">Расписание занятий</h2>
+            </div>
         </header>
         <main>
-        <div class="container">
+          <div class="container">
+            <div class="row">
             <ul class="nav nav-pills nav-justified">
                 <li><a data-toggle="pill" href="#group">Расписание учебных групп</a></li>
                 <li><a data-toggle="pill" href="#prepod">Расписание преподавателей</a></li>
             </ul>
-            <br>
             <div class="tab-content">
-                <div id="group" class="tab-pane fade in active">
+              <div id="group" class="tab-pane fade in active" style="margin-top: 10px">
                     <form class="form-inline" name="index" method="post">
-                        <div class="form-group">
+                      <div class="form-group">
                             <select class="selectpicker form-control" name="group" id="selectGroup" data-live-search="true" title="Выберите группу ...">
                                 <c:if test="${!empty groupList}">
                                     <c:forEach items="${groupList}" var="group">
@@ -42,7 +50,8 @@
                                 </c:if>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group inner-addon right-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
                             <input type="text" name="daterange" class="form-control" id="date">
                         </div>
                         <button type="submit" class="btn btn-default">Показать</button>
@@ -59,15 +68,19 @@
                                 </c:if>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="daterange" class="form-control" id="date">
+                        <div class="form-group inner-addon right-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                            <input type="text" name="daterange" class="datepicker-here form-control" id="date">
                         </div>
                         <button type="submit" class="btn btn-default">Показать</button>
                     </form>
                 </div>
             </div>
-            
+          </div> 
         </div>
+        <div class="container">
+            <div class="row">
+            <article class="col-lg-12">
             <c:if test="${!empty raspMap}">
                 <form class="form-inline">
                     <div class="dropdown form-group">
@@ -75,16 +88,19 @@
                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>                            
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript: if(window.print) window.print()">Microsoft Excel</a></li>
-                            <li><a href="index/get">Adobe PDF</a></li>
+                            <li><a href="#">Microsoft Excel</a></li>
+                            <li><a href="index/get?${raspMap}" target="_blank">Adobe PDF</a></li>
                         </ul>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-default">
+                        <button type="button" class="btn btn-default" onClick="window.print()">
                             <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                         </button>
                     </div>    
                 </form>
+            </div>
+                        <div class="clearfix"></div>
+            <div class="row">
                 <div>
                 <table class="table table-striped">
                     <c:forEach items="${raspMap}" var="rasps">
@@ -94,55 +110,41 @@
                     </tr>
                     <c:forEach items="${rasps.value}" var="rasp">
                         <tr>
-                            <td>${rasp.vrem}</td>
-                            <td>${rasp.NDis}</td>
-                            <td>${rasp.dol}</td>
-                            <td>${rasp.aud}</td>
+                          <td width="20%">${rasp.vrem}</td>
+                          <td width="40%">${rasp.NDis}</td>
+                            <td width="20">${rasp.dol}</td>
+                            <td width="20%">${rasp.aud}</td>
                         </tr>
                     </c:forEach>
                 </c:forEach>
                 </table>
                 </div>
-        </c:if>	
+            </c:if>
+            </article>
+            </div>
+        </div>
         </main>
+        <footer>
+            <div class="container navbar navbar-inner  navbar-fixed-bottom">
+                <p>
+                    &copy; Череповецкий государственный университет,
+                    <a href="http://www.chsu.ru/">www.chsu.ru</a>
+                </p>
+                <p>
+                    О любых ошибках и неточностях в расписании сообщайте, пожалуйста, по адресу <a href="mailto:main@chsu.ru">main@chsu.ru</a>
+                </p>
+            </div>
+        </footer>
     </body>
-    <script type="text/javascript">
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-    "locale": {
-        "format": "DD.MM.YYYY",
-        "separator": " - ",
-        "applyLabel": "Принять",
-        "cancelLabel": "Отмена",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-            "Вс",
-            "Пн",
-            "Вт",
-            "Ср",
-            "Чт",
-            "Пт",
-            "Сб"
-        ],
-        "monthNames": [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        ],
-        "firstDay": 1
-    }});
+<script type="text/javascript">
+    $(function() {
+            $('input[name="daterange"]').datepicker({
+                range: true,
+                toggleSelected: false,
+                multipleDatesSeparator: " - ",
+                autoClose: true
+            });
         });
-    </script>
+</script>
+
 </html>

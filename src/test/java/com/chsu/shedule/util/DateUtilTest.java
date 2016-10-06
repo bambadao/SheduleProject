@@ -47,6 +47,8 @@ public class DateUtilTest {
         System.out.println("rangeToStringDate");
         String dateRange = "11/09/2016 - 15/09/2016";
         String[] expResult = {"11/09/2016", "15/09/2016"};
+//        String dateRange = "11/09/2016";
+//        String[] expResult = {"11/09/2016", "11/09/2016"};
         String[] result = DateUtil.rangeToStringDate(dateRange);
         assertArrayEquals(expResult, result);
     }

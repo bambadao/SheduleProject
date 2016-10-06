@@ -15,12 +15,15 @@ public final class DateUtil {
     private DateUtil() {}
     
     public static String[] rangeToStringDate(String dateRange) {
-        String[] temp = new String[2];
-        int count = 0;
+        String[] temp = {"",""};
         Matcher matcher = Pattern.compile("(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d").matcher(dateRange);
+        int count = 0;
         while(matcher.find()) {
             temp[count] = matcher.group();
             count++;
+        }
+        if (temp[1].isEmpty()) {
+            temp[1] = temp[0];
         }
         return temp;
     }
@@ -29,13 +32,7 @@ public final class DateUtil {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(rangeWeeks);
 	int[] temp = new int[2];
-	int start = 0, i = 0;
-	/*while (matcher.find(start)) {
-            String value = rangeWeeks.substring(matcher.start(), matcher.end());
-            temp[i] = Integer.parseInt(value);
-            start = matcher.end();
-            i++;
-	}*/
+	int i = 0;
         while (matcher.find()) {
             String value = matcher.group();
             temp[i] = Integer.parseInt(value);
