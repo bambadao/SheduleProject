@@ -32,29 +32,31 @@ public class RaspController {
         return "index";
     }
     
-    @RequestMapping(method = RequestMethod.POST, params="group")
+    @RequestMapping(method = RequestMethod.POST, params={"group","daterange"})
     public String getRaspListByGroup(@ModelAttribute("group") String group, @ModelAttribute("daterange") String dateRange
                                 , RedirectAttributes redirectAttributes) {
-        Map raspMap = raspService.getRaspListByGroup(group, dateRange);
-        
-        redirectAttributes.addFlashAttribute("raspMap", raspMap);
+        if (!group.equals("") && !dateRange.equals("")) {
+            Map raspMap = raspService.getRaspListByGroup(group, dateRange);
+            redirectAttributes.addFlashAttribute("groupMap", raspMap);
+        }
         return "redirect:/index.htm";
     }
     
-    @RequestMapping(method = RequestMethod.POST, params="prepod")
+    @RequestMapping(method = RequestMethod.POST, params={"prepod","daterange"})
     public String getRaspListByPrepod(@ModelAttribute("prepod") String prepod, @ModelAttribute("daterange") String dateRange
                                 , RedirectAttributes redirectAttributes) {
-        Map raspMap = raspService.getRaspListByPrepod(prepod, dateRange);
-        
-        redirectAttributes.addFlashAttribute("raspMap", raspMap);
+        if (!prepod.equals("") && !dateRange.equals("")) {
+            Map raspMap = raspService.getRaspListByPrepod(prepod, dateRange);
+            redirectAttributes.addFlashAttribute("prepodMap", raspMap);
+        }
         return "redirect:/index.htm";
     }
     
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPDF", method = RequestMethod.GET)
     public ModelAndView showListInPdf(HttpServletRequest request) {
         
-        
-        Map raspMap = (Map) request.getAttribute("raspMap");
-        return new ModelAndView("pdfDocument", "raspMap", raspMap);
+        Map raspMap = (Map) request.getAttribute("groupMap");
+        int msg = raspMap.size();
+        return new ModelAndView("pdfDocument", "msg", msg);
     }
 }

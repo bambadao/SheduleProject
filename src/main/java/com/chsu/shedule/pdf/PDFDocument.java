@@ -18,8 +18,9 @@ public class PDFDocument extends AbstractPdfView {
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         
         Map rasps = (Map) map.get("raspMap");
-//        String msg = (String) map.get("msg");
-        document.add(new Paragraph("Recommended books for Spring framework " + rasps.size()));
+        Integer msg = (Integer) map.get("msg");
+//        rasps.size();
+        document.add(new Paragraph("Recommended books for Spring framework " + msg));
 //        for (Iterator<Map.Entry<String, ArrayList<Rasp>>> it = rasps.entrySet().iterator(); it.hasNext();) {
 //            Map.Entry<String, ArrayList<Rasp>> temp = it.next();
 //            document.add(new Paragraph("temp.getKey()"));
