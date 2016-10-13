@@ -100,8 +100,8 @@
                     <!-- Start group print/export buttons -->
                     <div class="row" style="margin-bottom: 10px; padding-bottom: 10px; background: #cccccc;">
                         <div class="col-lg-10 text-center">
-                          <p><h3>Расписание группы $Blablabla</h3></p>
-                          <p>c $date по $ date</p>
+                          <p><h3>Расписание группы ${group}</h3></p>
+                          <p>${daterange}</p>
                         </div>
                       <div class="col-lg-2 hidden-sm-down hidden-print" style="vertical-align: middle;">
                             <form class="form-inline">
@@ -111,7 +111,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Microsoft Excel</a></li>
-                                        <li><a href="index/getPDF?${groupMap}" target="_blank">Adobe PDF</a></li>
+                                        <li><a href="index/getPDF?group=${group}&daterange=${daterange}" target="_blank">Adobe PDF</a></li>
                                     </ul>
                                 </div>
                                 <div class="form-group">
@@ -154,8 +154,9 @@
                 <c:if test="${!empty prepodMap}">
                     <!-- Start print/export buttons -->
                     <div class="row" style="margin-bottom: 10px; padding-bottom: 10px;">
-                        <div class="col-lg-10">
-                            <p>Расписание преподавателя $Blablabla</p>
+                        <div class="col-lg-10 text-center">
+                          <p><h3>Расписание преподавателя ${prepod}</h3></p>
+                          <p>${daterange}</p>
                         </div>
                         <div class="col-lg-2 hidden-sm-down hidden-print">
                             <form class="form-inline">

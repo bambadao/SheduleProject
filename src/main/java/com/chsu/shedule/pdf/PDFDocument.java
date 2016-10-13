@@ -17,10 +17,11 @@ public class PDFDocument extends AbstractPdfView {
     protected void buildPdfDocument(Map<String, Object> map, Document document, PdfWriter writer, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         
-        Map rasps = (Map) map.get("raspMap");
-        Integer msg = (Integer) map.get("msg");
+        Map rasps = (Map) map.get("msg");
+//        Integer msg = (Integer) map.get("msg");
+//        String msg = (String) map.get("msg");
 //        rasps.size();
-        document.add(new Paragraph("Recommended books for Spring framework " + msg));
+        document.add(new Paragraph("Recommended books for Spring framework " + rasps.size()));
 //        for (Iterator<Map.Entry<String, ArrayList<Rasp>>> it = rasps.entrySet().iterator(); it.hasNext();) {
 //            Map.Entry<String, ArrayList<Rasp>> temp = it.next();
 //            document.add(new Paragraph("temp.getKey()"));
